@@ -3,10 +3,26 @@
 namespace app\modules\api\search;
 
 use app\modules\api\activeRecords\Category;
+use app\modules\api\data\CustomDataProvider;
+use app\modules\api\mappers\CategoryMapper;
 use yii\data\ActiveDataProvider;
 
 class CategorySearch extends Category
 {
+    /** @var CategoryMapper */
+    private $categoryMapper;
+
+    /**
+     * CategorySearch constructor.
+     *
+     * @param CategoryMapper $categoryMapper
+     */
+    public function __construct(CategoryMapper $categoryMapper)
+    {
+        $this->categoryMapper = $categoryMapper;
+        parent::__construct();
+    }
+
     /**
      * @return array
      */
@@ -27,12 +43,13 @@ class CategorySearch extends Category
     {
         $query = Category::find();
 
-        $dataProvider = new ActiveDataProvider([
+        $dataProvider = new CustomDataProvider([
             'query'      => $query,
             'pagination' => [
                 'pageSize' => 20,
             ],
         ]);
+        $dataProvider->setCategoryMapper($this->categoryMapper);
 
         $this->load($params);
 

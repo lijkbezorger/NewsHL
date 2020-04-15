@@ -5,7 +5,9 @@ namespace app\modules\api\controllers;
 use app\modules\api\activeRecords\Category;
 use app\modules\api\forms\CategoryCreateForm;
 use app\modules\api\forms\CategoryUpdateForm;
+use app\modules\api\models\Category as CategoryApi;
 use app\modules\api\repositories\CategoryRepository;
+use app\modules\api\repositories\ICategoryApiRepository;
 use app\modules\api\resources\category\Index;
 use app\modules\api\resources\category\View;
 use app\modules\api\search\CategorySearch;
@@ -15,6 +17,8 @@ use yii\web\NotFoundHttpException;
 
 class CategoryController extends BaseRestController
 {
+    /** @var ICategoryApiRepository */
+    private $categoryApiRepository;
     /** @var CategoryRepository */
     private $categoryRepository;
 
@@ -23,14 +27,17 @@ class CategoryController extends BaseRestController
      *
      * @param $id
      * @param $module
+     * @param ICategoryApiRepository $categoryApiRepository
      * @param CategoryRepository $categoryRepository
      */
     public function __construct(
         $id,
         $module,
+        ICategoryApiRepository $categoryApiRepository,
         CategoryRepository $categoryRepository
     )
     {
+        $this->categoryApiRepository = $categoryApiRepository;
         $this->categoryRepository = $categoryRepository;
         parent::__construct($id, $module, []);
     }
@@ -57,7 +64,7 @@ class CategoryController extends BaseRestController
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = \Yii::createObject(CategorySearch::class);
         $dataProvider = $searchModel->search(\Yii::$app->request->get());
         $this->setResource(Index::fields());
 
@@ -89,14 +96,14 @@ class CategoryController extends BaseRestController
      *
      * @param int $id
      *
-     * @return Category|ActiveRecord
+     * @return CategoryApi
      * @throws NotFoundHttpException
      */
     public function actionView(int $id)
     {
         $this->setResource(View::fields());
 
-        return $this->findModelById($id);
+        return $this->findModelApiById($id);
     }
 
     /**
@@ -256,6 +263,21 @@ class CategoryController extends BaseRestController
             return [];
         } else {
             return ['errors' => 'Something went wrong'];
+        }
+    }
+
+    /**
+     * @param $id
+     *
+     * @return CategoryApi
+     * @throws NotFoundHttpException
+     */
+    protected function findModelApiById($id)
+    {
+        if (($model = $this->categoryApiRepository->findOneByCondition(['id' => $id])) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist');
         }
     }
 
