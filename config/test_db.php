@@ -1,5 +1,7 @@
 <?php
 
+Dotenv::load(getcwd(). '/');
+
 return [
     'class'    => yii\db\Connection::class,
     'dsn'      => getenv('DB_DRIVER') .

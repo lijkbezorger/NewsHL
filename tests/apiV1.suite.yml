@@ -1,0 +1,12 @@
+actor: ApiV1Tester
+modules:
+    config:
+        Yii2:
+            configFile: 'config/test-api.php'
+            transaction: true
+    enabled:
+        - Yii2
+        - REST:
+              url: /api/v1
+              depends: Yii2
+        - \Helper\ApiV1

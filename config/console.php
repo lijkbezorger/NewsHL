@@ -1,6 +1,7 @@
 <?php
 
 $bootstrap = require __DIR__ . '/bootstrap.php';
+$modules = require __DIR__ . '/modules.php';
 $components = require __DIR__ . '/components-console.php';
 $params = require __DIR__ . '/params.php';
 
@@ -15,11 +16,14 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'bootstrap'           => $bootstrap,
     'components'          => $components,
+    'modules'             => $modules,
     'params'              => $params,
 
     'controllerMap' => [
         'fixture' => [
-            'class' => 'yii\faker\FixtureController',
+            'class'           => 'yii\faker\FixtureController',
+            'templatePath'    => '@tests/fixtures/templates',
+            'fixtureDataPath' => '@tests/fixtures/data',
         ],
     ],
 ];

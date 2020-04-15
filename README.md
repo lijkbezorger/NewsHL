@@ -12,3 +12,20 @@ TODO:
     Необходимо добавить кеширование данных, применить SOLID принципы.
     Не нужно реализовывать авторизацию, разделение на роли.
     
+
+
+**Tests**
+
+Migrations to test db :
+
+     php yii test-infrastructure/run-migrations
+
+Generate fixtures:
+
+    php yii fixture/generate category --count=100
+    
+    php yii fixture/generate post --count=1000
+
+Run tests:
+
+    php vendor/bin/codecept run apiV1
