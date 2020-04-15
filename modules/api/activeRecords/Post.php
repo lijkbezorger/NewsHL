@@ -72,4 +72,28 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::class, ['id' => 'categoryId']);
     }
+
+    public function fields()
+    {
+        $related = $this->getRelatedRecords();
+        $category = $related['category'] ?? null;
+
+        return [
+            'id',
+            'content',
+            'preview',
+            'isPublished',
+            'publishedAt',
+            'category' => function () use ($category) {
+                if ($category) {
+                    return [
+                        'id'   => $category->id,
+                        'name' => $category->name,
+                    ];
+                }
+
+                return [];
+            },
+        ];
+    }
 }

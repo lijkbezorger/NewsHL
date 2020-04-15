@@ -21,10 +21,9 @@ class PostCategoryCest extends BaseCest
             'isActive' => true,
         ];
 
-        $I->sendPOST('/post', $post);
+        $I->sendPOST('/category', $post);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContains(json_encode($post['name']));
-        $I->seeResponseContains(json_encode($post['isActive']));
     }
 }

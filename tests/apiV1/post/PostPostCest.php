@@ -40,6 +40,5 @@ class PostPostCest extends BaseCest
         $I->seeResponseIsJson();
         $I->seeResponseContains(json_encode($post['content']));
         $I->seeResponseContains(json_encode($post['preview']));
-        $I->seeResponseContains(json_encode($post['isPublished']));
     }
 }

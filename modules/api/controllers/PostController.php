@@ -290,7 +290,7 @@ class PostController extends BaseRestController
      */
     protected function findModelById($id)
     {
-        if (($model = $this->postRepository->findOneByCondition(['id' => $id])) !== null) {
+        if (($model = $this->postRepository->findFullOneByCondition(['id' => $id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested post does not exist');

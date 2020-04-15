@@ -6,6 +6,7 @@ use ApiV1Tester;
 use Codeception\Util\HttpCode;
 use tests\apiV1\BaseCest;
 use tests\fixtures\activeRecords\CategoryFixture;
+use tests\fixtures\activeRecords\PostFixture;
 
 class GetCategoryCest extends BaseCest
 {
@@ -19,6 +20,10 @@ class GetCategoryCest extends BaseCest
             'category' => [
                 'class'    => CategoryFixture::class,
                 'dataFile' => CategoryFixture::getDataFile(),
+            ],
+            'post'     => [
+                'class'    => PostFixture::class,
+                'dataFile' => PostFixture::getDataFile(),
             ],
         ]);
 

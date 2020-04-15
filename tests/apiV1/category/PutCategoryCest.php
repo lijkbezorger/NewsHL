@@ -16,7 +16,7 @@ class PutCategoryCest extends BaseCest
         parent::_before($I);
 
         $I->haveFixtures([
-            'post' => [
+            'category' => [
                 'class'    => CategoryFixture::class,
                 'dataFile' => CategoryFixture::getDataFile(),
             ],
@@ -37,6 +37,5 @@ class PutCategoryCest extends BaseCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContains(json_encode($post['name']));
-        $I->seeResponseContains(json_encode($post['isActive']));
     }
 }

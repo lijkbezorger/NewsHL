@@ -58,4 +58,26 @@ class Category extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Post::class, ['categoryId' => 'id']);
     }
+
+    /**
+     * @return bool|int|string|null
+     */
+    public function getPostsAmount()
+    {
+        return $this->getPosts()->count('id');
+    }
+
+    public function fields()
+    {
+        $posts = (int)$this->getPostsAmount();
+
+        return [
+            'id',
+            'name',
+            'isActive',
+            'postsAmount' => function () use ($posts) {
+                return $posts;
+            },
+        ];
+    }
 }
