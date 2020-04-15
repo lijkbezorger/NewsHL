@@ -28,7 +28,7 @@ class GetCategoryCest extends BaseCest
     // tests
     public function getCategoryTest(ApiV1Tester $I)
     {
-        $I->sendGET('/post/' . $this->category->id);
+        $I->sendGET('/category/' . $this->category->id);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseMatchesJsonType([
