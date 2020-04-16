@@ -35,7 +35,7 @@ class GetPostCest extends BaseCest
             'id'          => 'integer',
             'content'     => 'string',
             'preview'     => 'string',
-            'isPublished' => 'integer',
+            'isPublished' => 'boolean',
             'publishedAt' => 'integer',
         ]);
 

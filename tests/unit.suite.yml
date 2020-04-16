@@ -5,7 +5,10 @@
 
 class_name: UnitTester
 modules:
+    config:
+        Yii2:
+            configFile: 'config/test.php'
     enabled:
       - Asserts
       - Yii2:
-            part: [orm, email, fixtures]
+            part: [orm, fixtures]

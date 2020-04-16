@@ -82,9 +82,11 @@ class Post extends \yii\db\ActiveRecord
             'id',
             'content',
             'preview',
-            'isPublished',
+            'isPublished' => function () {
+                return (bool)$this->isPublished;
+            },
             'publishedAt',
-            'category' => function () use ($category) {
+            'category'    => function () use ($category) {
                 if ($category) {
                     return [
                         'id'   => $category->id,

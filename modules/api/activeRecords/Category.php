@@ -74,7 +74,9 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id',
             'name',
-            'isActive',
+            'isActive'    => function () {
+                return (bool)$this->isActive;
+            },
             'postsAmount' => function () use ($posts) {
                 return $posts;
             },

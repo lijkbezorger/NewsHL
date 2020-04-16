@@ -39,7 +39,7 @@ class GetCategoryCest extends BaseCest
         $I->canSeeResponseMatchesJsonType([
             'id'          => 'integer',
             'name'        => 'string',
-            'isActive'    => 'integer',
+            'isActive'    => 'boolean',
             'postsAmount' => 'integer',
         ]);
     }
