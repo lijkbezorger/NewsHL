@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
 
 class PostRepositoryCached extends AbstractPostRepository implements PostRepositoryInterface
 {
-    private const CACHE_TAG_POSTS = 'postList';
-    private const CACHE_TAG_POST  = 'post-';
+    public const CACHE_TAG_POSTS = 'postList';
+    public const CACHE_TAG_POST  = 'post-';
 
     /** @var PostRepository */
     private $postRepository;
@@ -68,6 +68,9 @@ class PostRepositoryCached extends AbstractPostRepository implements PostReposit
         $entity = $this->save($model, $validation);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POSTS);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POST . $model->id);
+        if ($model->categoryId) {
+            TagDependency::invalidate(\Yii::$app->cache, CategoryRepositoryCached::CACHE_TAG_CATEGORY . $model->id);
+        }
 
         return $entity;
     }
@@ -77,6 +80,9 @@ class PostRepositoryCached extends AbstractPostRepository implements PostReposit
     {
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POSTS);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POST . $model->id);
+        if ($model->categoryId) {
+            TagDependency::invalidate(\Yii::$app->cache, CategoryRepositoryCached::CACHE_TAG_CATEGORY . $model->id);
+        }
 
         return $this->deleteByObject($model);
     }

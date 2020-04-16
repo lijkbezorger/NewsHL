@@ -13,8 +13,13 @@ class PostUpdateForm extends AbstractPostForm
      */
     public function save(Post $post): ?Post
     {
+        $timestamp = time();
+
         $post->load($this->getAttributes(), '');
-        $post->updatedAt = time();
+        $post->updatedAt = $timestamp;
+        if ($this->isPublished && !$post->publishedAt) {
+            $post->publishedAt = $timestamp;
+        }
 
         /** @var Post|null $saveResult */
         $saveResult = $this->postRepository->save($post);

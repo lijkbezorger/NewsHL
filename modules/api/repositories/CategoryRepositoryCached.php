@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
 
 class CategoryRepositoryCached extends AbstractCategoryRepository implements CategoryRepositoryInterface
 {
-    private const CACHE_TAG_CATEGORIES = 'categoryList';
-    private const CACHE_TAG_CATEGORY   = 'category-';
+    public const CACHE_TAG_CATEGORIES = 'categoryList';
+    public const CACHE_TAG_CATEGORY   = 'category-';
 
     /** @var CategoryRepository */
     private $categoryRepository;
