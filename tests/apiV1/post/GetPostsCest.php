@@ -35,7 +35,7 @@ class GetPostsCest extends BaseCest
         $I->canSeeResponseMatchesJsonType([
             'id'          => 'integer',
             'preview'     => 'string',
-            'publishedAt' => 'integer',
+            'publishedAt' => 'integer|null',
         ], '$[0]');
     }
 }

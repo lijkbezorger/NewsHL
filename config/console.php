@@ -24,6 +24,7 @@ $config = [
             'class'           => 'yii\faker\FixtureController',
             'templatePath'    => '@tests/fixtures/templates',
             'fixtureDataPath' => '@tests/fixtures/data',
+            'namespace'       => 'tests\fixtures',
         ],
     ],
 ];

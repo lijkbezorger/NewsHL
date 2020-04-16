@@ -3,11 +3,11 @@
 namespace app\modules\api\controllers;
 
 use app\modules\api\activeRecords\Post;
-use app\modules\api\models\Post as PostApi;
+use app\modules\api\filters\PostFilter;
 use app\modules\api\forms\{PostCreateForm, PostUpdateForm};
 use app\modules\api\repositories\PostRepository;
 use app\modules\api\resources\post\{Index, View};
-use app\modules\api\search\PostSearch;
+use app\modules\api\responses\PaginatedResponse;
 use yii\db\ActiveRecord;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
@@ -56,15 +56,15 @@ class PostController extends BaseRestController
      *  )
      * )
      *
-     * @return \yii\data\ActiveDataProvider
+     * @return PaginatedResponse
      */
     public function actionIndex()
     {
-        $searchModel = new PostSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->get());
+        $filter = PostFilter::fromRequest(\Yii::$app->request);
+        $posts = $this->postRepository->findList($filter);
         $this->setResource(Index::fields());
 
-        return $dataProvider;
+        return new PaginatedResponse($posts, $filter);
     }
 
     /**

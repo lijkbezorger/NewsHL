@@ -3,12 +3,13 @@
 namespace app\modules\api\controllers;
 
 use app\modules\api\activeRecords\Category;
+use app\modules\api\filters\CategoryFilter;
 use app\modules\api\forms\CategoryCreateForm;
 use app\modules\api\forms\CategoryUpdateForm;
 use app\modules\api\repositories\CategoryRepository;
 use app\modules\api\resources\category\Index;
 use app\modules\api\resources\category\View;
-use app\modules\api\search\CategorySearch;
+use app\modules\api\responses\PaginatedResponse;
 use yii\db\ActiveRecord;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
@@ -53,15 +54,15 @@ class CategoryController extends BaseRestController
      *  )
      * )
      *
-     * @return \yii\data\ActiveDataProvider
+     * @return PaginatedResponse
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->get());
+        $filter = CategoryFilter::fromRequest(\Yii::$app->request);
+        $posts = $this->categoryRepository->findList($filter);
         $this->setResource(Index::fields());
 
-        return $dataProvider;
+        return new PaginatedResponse($posts, $filter);
     }
 
     /**

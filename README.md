@@ -13,18 +13,24 @@ TODO:
     Не нужно реализовывать авторизацию, разделение на роли.
     
 
-
-**Tests**
-
-Migrations to test db :
-
-     php yii test-infrastructure/run-migrations
+**Fixtures**
 
 Generate fixtures:
 
     php yii fixture/generate category --count=100
     
     php yii fixture/generate post --count=1000
+
+Load fixtures:
+
+    php yii fixture/load "*"
+
+
+**Tests**
+
+Migrations to test db :
+
+     php yii test-infrastructure/run-migrations
 
 Run tests:
 
