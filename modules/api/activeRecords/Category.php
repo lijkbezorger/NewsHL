@@ -2,6 +2,9 @@
 
 namespace app\modules\api\activeRecords;
 
+use app\modules\api\queries\CategoryQuery;
+use yii\db\Expression;
+
 /**
  * This is the model class for table "category".
  *
@@ -15,6 +18,9 @@ namespace app\modules\api\activeRecords;
  */
 class Category extends \yii\db\ActiveRecord
 {
+    /** @var int */
+    private $postsAmount = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -59,26 +65,36 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(Post::class, ['categoryId' => 'id']);
     }
 
-    /**
-     * @return bool|int|string|null
-     */
-    public function getPostsAmount()
+    /** @return int */
+    public function getPostsAmount(): int
     {
-        return $this->getPosts()->count('id');
+        return $this->postsAmount;
+    }
+
+    /** @param int $postsAmount */
+    public function setPostsAmount(int $postsAmount): void
+    {
+        $this->postsAmount = $postsAmount;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new CategoryQuery(get_called_class());
     }
 
     public function fields()
     {
-        $posts = (int)$this->getPostsAmount();
-
         return [
             'id',
             'name',
             'isActive'    => function () {
                 return (bool)$this->isActive;
             },
-            'postsAmount' => function () use ($posts) {
-                return $posts;
+            'postsAmount' => function () {
+                return $this->postsAmount;
             },
         ];
     }

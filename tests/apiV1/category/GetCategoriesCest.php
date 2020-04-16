@@ -31,6 +31,6 @@ class GetCategoriesCest extends BaseCest
             'id'          => 'integer',
             'name'        => 'string',
             'postsAmount' => 'integer',
-        ], '$[0]');
+        ], '$items[0]');
     }
 }

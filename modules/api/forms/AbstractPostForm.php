@@ -3,7 +3,7 @@
 namespace app\modules\api\forms;
 
 use app\modules\api\activeRecords\Category;
-use app\modules\api\repositories\PostRepository;
+use app\modules\api\repositories\PostRepositoryInterface;
 use yii\base\Model;
 
 abstract class AbstractPostForm extends Model
@@ -17,16 +17,16 @@ abstract class AbstractPostForm extends Model
     /** @var int */
     public $categoryId;
 
-    /** @var PostRepository */
+    /** @var PostRepositoryInterface */
     protected $postRepository;
 
     /**
      * AbstractPostForm constructor.
      *
-     * @param PostRepository $postRepository
+     * @param PostRepositoryInterface $postRepository
      */
     public function __construct(
-        PostRepository $postRepository
+        PostRepositoryInterface $postRepository
     )
     {
         $this->postRepository = $postRepository;

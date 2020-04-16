@@ -2,6 +2,8 @@
 
 namespace app\modules\api\activeRecords;
 
+use app\modules\api\queries\CategoryQuery;
+
 /**
  * This is the model class for table "post".
  *

@@ -1,4 +1,6 @@
 <?php
+
+$cache = require __DIR__ . '/cache.php';
 $db = require __DIR__ . '/db.php';
 
 return [
@@ -8,9 +10,6 @@ return [
         'parsers'             => [
             'application/json' => 'yii\web\JsonParser',
         ],
-    ],
-    'cache'        => [
-        'class' => 'yii\caching\FileCache',
     ],
     'user'         => [
         'identityClass'   => 'app\models\User',
@@ -32,5 +31,6 @@ return [
         'enablePrettyUrl' => true,
         'showScriptName'  => false,
     ],
+    'cache'        => $cache,
     'db'           => $db,
 ];

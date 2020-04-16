@@ -5,7 +5,7 @@ namespace app\modules\api\controllers;
 use app\modules\api\activeRecords\Post;
 use app\modules\api\filters\PostFilter;
 use app\modules\api\forms\{PostCreateForm, PostUpdateForm};
-use app\modules\api\repositories\PostRepository;
+use app\modules\api\repositories\PostRepositoryInterface;
 use app\modules\api\resources\post\{Index, View};
 use app\modules\api\responses\PaginatedResponse;
 use yii\db\ActiveRecord;
@@ -18,7 +18,7 @@ use yii\web\NotFoundHttpException;
  */
 class PostController extends BaseRestController
 {
-    /** @var PostRepository */
+    /** @var PostRepositoryInterface */
     private $postRepository;
 
     /**
@@ -26,12 +26,12 @@ class PostController extends BaseRestController
      *
      * @param $id
      * @param $module
-     * @param PostRepository $postRepository
+     * @param PostRepositoryInterface $postRepository
      */
     public function __construct(
         $id,
         $module,
-        PostRepository $postRepository
+        PostRepositoryInterface $postRepository
     )
     {
         $this->postRepository = $postRepository;

@@ -2,7 +2,7 @@
 
 namespace app\modules\api\forms;
 
-use app\modules\api\repositories\CategoryRepository;
+use app\modules\api\repositories\CategoryRepositoryInterface;
 use yii\base\Model;
 
 abstract class AbstractCategoryForm extends Model
@@ -12,16 +12,16 @@ abstract class AbstractCategoryForm extends Model
     /** @var bool */
     public $isActive = false;
 
-    /** @var CategoryRepository */
+    /** @var CategoryRepositoryInterface */
     protected $categoryRepository;
 
     /**
      * AbstractCategoryForm constructor.
      *
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
-        CategoryRepository $categoryRepository
+        CategoryRepositoryInterface $categoryRepository
     )
     {
         $this->categoryRepository = $categoryRepository;

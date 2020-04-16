@@ -11,6 +11,7 @@
     },
     "require": {
         "php": ">=7.2",
+        "ext-memcached": "*",
         "doctrine/annotations": "1.6.*",
         "flow/jsonpath": "^0.5.0",
         "genxoft/yii2-oas3": "*",

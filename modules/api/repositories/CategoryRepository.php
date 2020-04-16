@@ -5,18 +5,14 @@ namespace app\modules\api\repositories;
 use app\modules\api\filters\CategoryFilter;
 use yii\db\ActiveRecord;
 
-class CategoryRepository extends AbstractRepository
+class CategoryRepository extends AbstractCategoryRepository implements CategoryRepositoryInterface
 {
-    /**
-     * @param CategoryFilter $filter
-     *
-     * @return array|ActiveRecord[]
-     */
-    public function findList(CategoryFilter $filter)
+    /** @inheritDoc */
+    public function findList(CategoryFilter $filter): array
     {
         $query = $this->ar::find();
         $query->limit($filter->getPageSize());
-        $query->orderBy(['id' => SORT_DESC]);
+        $query->addPostsAmount();
         if ($filter->getPage()) {
             $query->offset($filter->getPageSize() * ($filter->getPage() - 1));
         }
@@ -27,11 +23,42 @@ class CategoryRepository extends AbstractRepository
     /**
      * @return ActiveRecord
      */
-    public function findFullOneByCondition($condition)
+    public function findOneByCondition($condition)
     {
         return $this->ar::find()
-            ->with(['postsAmount'])
-            ->andWhere($condition)
+            ->applyCondition($condition)
+            ->addPostsAmount()
             ->one();
+    }
+
+    /**
+     * @param $model ActiveRecord
+     *
+     * @param bool $validation
+     *
+     * @return ActiveRecord|null
+     */
+    public function save(ActiveRecord $model, bool $validation = false)
+    {
+        $entity = null;
+
+        $saveResult = $model->save($validation);
+        if ($saveResult) {
+            $entity = $model;
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param ActiveRecord $model
+     *
+     * @return bool|false|int|mixed
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function deleteByObject(ActiveRecord $model)
+    {
+        return $model->delete();
     }
 }

@@ -5,14 +5,10 @@ namespace app\modules\api\repositories;
 use app\modules\api\filters\PostFilter;
 use yii\db\ActiveRecord;
 
-class PostRepository extends AbstractRepository
+class PostRepository extends AbstractPostRepository implements PostRepositoryInterface
 {
-    /**
-     * @param PostFilter $filter
-     *
-     * @return array|ActiveRecord[]
-     */
-    public function findList(PostFilter $filter)
+    /** @inheritDoc */
+    public function findList(PostFilter $filter): array
     {
         $query = $this->ar::find();
         $query->with(['category']);
@@ -34,5 +30,36 @@ class PostRepository extends AbstractRepository
             ->with(['category'])
             ->andWhere($condition)
             ->one();
+    }
+
+    /**
+     * @param $model ActiveRecord
+     *
+     * @param bool $validation
+     *
+     * @return ActiveRecord|null
+     */
+    public function save(ActiveRecord $model, bool $validation = false)
+    {
+        $entity = null;
+
+        $saveResult = $model->save($validation);
+        if ($saveResult) {
+            $entity = $model;
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param ActiveRecord $model
+     *
+     * @return bool|false|int|mixed
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function deleteByObject(ActiveRecord $model)
+    {
+        return $model->delete();
     }
 }

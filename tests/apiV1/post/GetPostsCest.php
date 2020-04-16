@@ -36,6 +36,6 @@ class GetPostsCest extends BaseCest
             'id'          => 'integer',
             'preview'     => 'string',
             'publishedAt' => 'integer|null',
-        ], '$[0]');
+        ], '$items[0]');
     }
 }

@@ -6,7 +6,7 @@ use app\modules\api\activeRecords\Category;
 use app\modules\api\filters\CategoryFilter;
 use app\modules\api\forms\CategoryCreateForm;
 use app\modules\api\forms\CategoryUpdateForm;
-use app\modules\api\repositories\CategoryRepository;
+use app\modules\api\repositories\CategoryRepositoryInterface;
 use app\modules\api\resources\category\Index;
 use app\modules\api\resources\category\View;
 use app\modules\api\responses\PaginatedResponse;
@@ -16,20 +16,20 @@ use yii\web\NotFoundHttpException;
 
 class CategoryController extends BaseRestController
 {
-    /** @var CategoryRepository */
+    /** @var CategoryRepositoryInterface */
     private $categoryRepository;
 
     /**
-     * PostController constructor.
+     * CategoryController constructor.
      *
      * @param $id
      * @param $module
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
         $id,
         $module,
-        CategoryRepository $categoryRepository
+        CategoryRepositoryInterface $categoryRepository
     )
     {
         $this->categoryRepository = $categoryRepository;
