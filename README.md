@@ -14,7 +14,8 @@ TODO:
     
 **Docker & usage**
 
-- Set up project, docker, db:
+
+Set up project, docker, db:
     
     
     cp .env.example
@@ -27,21 +28,20 @@ TODO:
     cd {appRootDir}
     php yii migrate --migrationPath=@app/modules/api/migrations
     
-
-- Load fixtures (see below) 
+Load fixtures (see below) 
     
     
     docker exec -it fpm_news bash
     cd {appRootDir}
     
-- Web:
+Web:
 
     
     Home page:  localhost:8090
     
     API doc page: localhost:8090/api/v1/doc
 
-- Set Up tests
+Set Up tests
 
     
     docker exec -it mysql_news bash
@@ -53,7 +53,7 @@ TODO:
     cd {appRootDir}
     php yiitest migrate --migrationPath=@app/modules/api/migrations | php yii test-infrastructure/run-migrations
 
-- Run tests (commands below):
+Run tests (commands below):
     
     docker exec -it fpm_news bash
     cd {appRootDir}
