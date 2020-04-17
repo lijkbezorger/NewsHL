@@ -43,6 +43,20 @@ class PostController extends BaseRestController
      *  path="/posts",
      *  tags={"Posts"},
      *  summary="Retrieves the collection of posts resources",
+     *  @OA\Parameter(
+     *   name="page",
+     *   in="path",
+     *   description="Pagination page",
+     *   required=false,
+     *   @OA\Schema(type="integer")
+     *  ),
+     *  @OA\Parameter(
+     *   name="pageSize",
+     *   in="path",
+     *   description="Pagination page size",
+     *   required=false,
+     *   @OA\Schema(type="integer")
+     *  ),
      *  @OA\Response(
      *   response = 200,
      *   description = "Post collection response",

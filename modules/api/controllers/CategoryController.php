@@ -41,6 +41,20 @@ class CategoryController extends BaseRestController
      *  path="/categories",
      *  tags={"Categories"},
      *  summary="Retrieves the collection of categories resources",
+     *  @OA\Parameter(
+     *   name="page",
+     *   in="path",
+     *   description="Pagination page",
+     *   required=false,
+     *   @OA\Schema(type="integer")
+     *  ),
+     *  @OA\Parameter(
+     *   name="pageSize",
+     *   in="path",
+     *   description="Pagination page size",
+     *   required=false,
+     *   @OA\Schema(type="integer")
+     *  ),
      *  @OA\Response(
      *   response = 200,
      *   description = "Category collection response",
