@@ -65,7 +65,7 @@ class PostRepositoryCached extends AbstractPostRepository implements PostReposit
     /** @inheritDoc */
     public function save(ActiveRecord $model, bool $validation = false)
     {
-        $entity = $this->save($model, $validation);
+        $entity = $this->postRepository->save($model, $validation);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POSTS);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_POST . $model->id);
         if ($model->categoryId) {
@@ -84,6 +84,6 @@ class PostRepositoryCached extends AbstractPostRepository implements PostReposit
             TagDependency::invalidate(\Yii::$app->cache, CategoryRepositoryCached::CACHE_TAG_CATEGORY . $model->id);
         }
 
-        return $this->deleteByObject($model);
+        return $this->postRepository->deleteByObject($model);
     }
 }

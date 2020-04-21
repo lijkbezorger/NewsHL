@@ -65,7 +65,7 @@ class CategoryRepositoryCached extends AbstractCategoryRepository implements Cat
     /** @inheritDoc */
     public function save(ActiveRecord $model, bool $validation = false)
     {
-        $entity = $this->save($model, $validation);
+        $entity = $this->categoryRepository->save($model, $validation);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_CATEGORIES);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_CATEGORY . $model->id);
 
@@ -78,6 +78,6 @@ class CategoryRepositoryCached extends AbstractCategoryRepository implements Cat
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_CATEGORIES);
         TagDependency::invalidate(\Yii::$app->cache, self::CACHE_TAG_CATEGORY . $model->id);
 
-        return $this->deleteByObject($model);
+        return $this->categoryRepository->deleteByObject($model);
     }
 }
