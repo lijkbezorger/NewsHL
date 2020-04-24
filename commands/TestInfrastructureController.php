@@ -8,8 +8,6 @@ use yii\db\Connection;
 use yii\helpers\Console;
 
 /**
- * Calendar clear
- *
  * Class TestInfrastructureController
  * @package app\commands
  */
