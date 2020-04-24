@@ -13,28 +13,6 @@ use yii\helpers\Console;
  */
 class TestInfrastructureController extends Controller
 {
-    const TEST_SUFFIX = '_test';
-
-    /** @var Connection */
-    private $connection;
-
-    /** @var array */
-    private $paths = [
-        '',
-        '@app/modules/api/migrations',
-    ];
-
-    public function __construct(
-        $id,
-        $module,
-        $config = []
-    )
-    {
-        parent::__construct($id, $module, $config);
-
-        $this->connection = \Yii::$app->getDb();
-    }
-
     /**
      * Run migrations on test database
      */
