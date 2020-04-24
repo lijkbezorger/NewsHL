@@ -18,7 +18,9 @@ TODO:
 Set up project, docker, db:
     
     
-    cp .env.example
+    cp .env.example .env
+    
+    composer install   
     
     cd docker
     docker-compose build
